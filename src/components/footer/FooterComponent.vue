@@ -12,6 +12,6 @@
 
 <style lang="scss" scoped>
 .component.-footer {
-  //
+  padding: 20px 0;
 }
 </style>

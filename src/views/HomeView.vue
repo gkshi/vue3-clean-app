@@ -1,10 +1,11 @@
 <script lang="ts" setup>
-// import { useStore } from '@/stores'
+import { useModals } from '@/stores/modals'
 import UIButton from '@/components/ui/UIButton.vue'
 
-// const store = useStore()
+const $modals = useModals()
+
 const openExampleModal = () => {
-  console.log('openExampleModal')
+  $modals.open('example')
 }
 </script>
 
@@ -14,7 +15,7 @@ const openExampleModal = () => {
       <h1>Home page</h1>
       <div>home page content</div>
       <div>
-        <UIButton @click="openExampleModal">Open example modal</UIButton>
+        <UIButton size="small" @click="openExampleModal">Open example modal</UIButton>
       </div>
     </div>
   </div>

@@ -1,6 +1,7 @@
 @import "colors";
 
 $border-radius-default: 8px;
-$border-radius-button: 10px;
+$border-radius-button: 8px;
+$border-radius-modal: 20px;
 
-$box-shadow-default: 0px 7px 10px 0px $color-shadow;
+$box-shadow-default: 0px 7px 10px 5px rgba($color-dark, .08);

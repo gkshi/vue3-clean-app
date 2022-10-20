@@ -74,6 +74,13 @@ const buttonProps = () => {
       line-height: 19px;
       border-radius: $border-radius-button;
     }
+
+    &-small {
+      padding: 12px 22px 13px;
+      font-size: 15px;
+      line-height: 18px;
+      border-radius: $border-radius-button;
+    }
   }
 
   &.-theme {

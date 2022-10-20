@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import HeaderComponent from '@/components/header/HeaderComponent.vue'
 import FooterComponent from '@/components/footer/FooterComponent.vue'
+import ModalController from '@/components/modals/ModalController.vue'
 </script>
 
 <template>
@@ -12,6 +13,8 @@ import FooterComponent from '@/components/footer/FooterComponent.vue'
     </main>
 
     <FooterComponent/>
+
+    <ModalController/>
   </div>
 </template>
 
