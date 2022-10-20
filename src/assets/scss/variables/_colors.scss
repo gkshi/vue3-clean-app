@@ -1,0 +1,25 @@
+// primary
+$color-primary: #195CDC;
+$color-primary-highlight: #0D4DC7;
+
+// global
+$color-light: #ccc;
+$color-dark: #171717;
+$color-danger: #bf1d4a;
+$color-warning: #FDBF61;
+$color-success: #85D79B;
+
+// page
+$color-page-bg: #fff;
+$color-content-bg: #242424;
+$color-modal-bg: $color-page-bg;
+
+// text
+$color-text-regular: #363e59;
+$color-text-dark: #28255F;
+$color-text-light: #CEBCFD;
+$color-text-white: #fff;
+$color-text-placeholder: rgba($color-text-regular, .5);
+
+// shadows
+$color-shadow: rgba(#000, 0);

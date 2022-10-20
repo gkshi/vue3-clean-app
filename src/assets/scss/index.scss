@@ -1,0 +1,49 @@
+// app
+@import 'variables/index';
+@import "reset";
+@import 'typography';
+@import 'utils';
+@import 'extends';
+
+// dependencies
+//
+
+// global styles
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: $font-family-default;
+  font-size: $font-size-regular;
+  line-height: $line-height-regular;
+  font-weight: $font-weight-medium;
+  background: $color-page-bg;
+  color: $color-text-regular;
+}
+
+a {
+  color: $color-primary;
+  text-decoration: none;
+  transition: $transition-link;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:focus {
+    text-decoration: underline;
+  }
+}
+
+.container {
+  width: 680px;
+  max-width: 100%;
+  margin: 0 auto;
+
+  &.-narrow {
+    width: 330px;
+  }
+
+  &.-wide {
+    width: 1200px;
+  }
+}

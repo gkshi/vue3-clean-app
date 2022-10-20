@@ -1,0 +1,12 @@
+// variables
+$transition-default-time: .15s;
+$transition-default-function: ease;
+
+// default
+$transition-default: all $transition-default-time $transition-default-function;
+
+// custom
+$transition-field: all .15s $transition-default-function;
+$transition-button: background .2s ease, color .2s ease, border .2s ease;
+$transition-link: color .15s $transition-default-function;
+$transition-modal: all .2s $transition-default-function;
