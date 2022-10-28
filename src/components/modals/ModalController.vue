@@ -6,17 +6,16 @@ import { useModals } from '@/stores/modals'
 import ExampleModal from './list/ExampleModal.vue'
 
 const $modals = useModals()
-
 const show = computed(() => $modals.state.openedModals.length)
 
-const onClick = () => {
+const onBackgroundClick = () => {
   $modals.closeLast()
 }
 </script>
 
 <template>
   <Transition name="modal">
-    <div v-if="show" class="modal-controller" @click.self="onClick">
+    <div v-if="show" class="modal-controller" @click.self="onBackgroundClick">
       <!-- modal list here -->
       <ExampleModal/>
     </div>

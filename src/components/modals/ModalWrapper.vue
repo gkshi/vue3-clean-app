@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { computed, ref, useSlots } from 'vue'
+import { computed, onBeforeMount, onBeforeUnmount, onMounted, onUnmounted, useSlots } from 'vue'
 import { useModals } from '@/stores/modals'
 
 import CrossIcon from '@/components/icons/CrossIcon.vue'
 
 interface Props {
   id: string,
-  size: 'default' | 'wide' | 'narrow'
+  size?: 'default' | 'wide' | 'narrow'
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -14,10 +14,26 @@ const props = withDefaults(defineProps<Props>(), {
 })
 const $modals = useModals()
 const slots = useSlots()
+const emit = defineEmits(['beforeOpen', 'opened', 'beforeClose', 'closed'])
+
+const animationDelay = 200 // Sync this value with transition property in styles below
 
 const show = computed(() => $modals.isOpened(props.id))
 
 const close = () => $modals.close(props.id)
+
+onBeforeMount(() => {
+  emit('beforeOpen')
+})
+onMounted(() => {
+  setTimeout(() => emit('opened'), animationDelay)
+})
+onBeforeUnmount(() => {
+  emit('beforeClose')
+})
+onUnmounted(() => {
+  emit('closed')
+})
 </script>
 
 <template>
@@ -60,6 +76,9 @@ const close = () => $modals.close(props.id)
     border: none;
     border-radius: $border-radius-modal;
     box-shadow: $box-shadow-default;
+
+    // Transition duration value is using in the script as emit delay
+    // Sync this value with "animationDelay" constant above
     transition: transform .2s ease, opacity .2s ease;
 
     .close {
