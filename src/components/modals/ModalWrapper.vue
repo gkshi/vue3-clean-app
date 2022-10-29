@@ -38,29 +38,31 @@ onUnmounted(() => {
 
 <template>
   <div class="component -modal-wrapper">
-    <dialog v-if="show" :class="`modal -size-${props.size}`" :data-modal-id="props.id" :open="show">
-      <a class="close flex center" href="#" @click.prevent="close">
-        <CrossIcon/>
-      </a>
+    <template v-if="show">
+      <dialog :class="`modal -size-${props.size}`" :data-modal-id="props.id" :open="show">
+        <a class="close flex center" href="#" @click.prevent="close">
+          <CrossIcon/>
+        </a>
 
-      <template v-if="slots.header().length">
-        <div class="header">
-          <slot name="header"/>
+        <template v-if="slots.header().length">
+          <div class="header">
+            <slot name="header"/>
+          </div>
+        </template>
+
+        <div class="main">
+          <slot/>
         </div>
-      </template>
 
-      <div class="main">
-        <slot/>
-      </div>
+        <template v-if="slots.footer().length">
+          <div class="footer">
+            <slot name="footer"></slot>
+          </div>
+        </template>
+      </dialog>
 
-      <template v-if="slots.footer().length">
-        <div class="footer">
-          <slot name="footer"></slot>
-        </div>
-      </template>
-    </dialog>
-
-    <div class="space" @click="close"></div>
+      <div class="space" @click="close"></div>
+    </template>
   </div>
 </template>
 
