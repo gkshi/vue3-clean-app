@@ -102,6 +102,15 @@ defineExpose({
     line-height: $line-height-regular;
     padding: 20px 24px;
     border-radius: $border-radius-field;
+    transition: $transition-default;
+
+    &:hover {
+      background: darken($color-field-bg, 2%);
+    }
+
+    &:focus {
+      background: darken($color-field-bg, 2%);
+    }
   }
 
   &.-filled {
