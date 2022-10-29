@@ -59,6 +59,8 @@ onUnmounted(() => {
         </div>
       </template>
     </dialog>
+
+    <div class="space" @click="close"></div>
   </div>
 </template>
 
@@ -67,6 +69,8 @@ onUnmounted(() => {
 @import "src/assets/scss/typography";
 
 .component.-modal-wrapper {
+  max-height: 100%;
+
   .modal {
     position: relative;
     z-index: 1;
@@ -110,6 +114,13 @@ onUnmounted(() => {
         width: 480px;
       }
     }
+  }
+
+  .space {
+    display: block;
+    width: 100%;
+    height: 40px;
+    background: transparent;
   }
 }
 </style>

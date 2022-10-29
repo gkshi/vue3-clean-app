@@ -22,8 +22,9 @@ $color-text-white: #fff;
 $color-text-placeholder: rgba($color-text-regular, .5);
 
 // fields
+$color-field-bg: #f0f0f0;
 $color-checkbox-active: $color-primary;
-$color-checkbox-bg: $color-light;
+$color-checkbox-bg: darken($color-field-bg, 5%);
 
 // shadows
 $color-shadow: rgba(#000, 0);

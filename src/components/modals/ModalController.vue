@@ -46,6 +46,8 @@ const onBackgroundClick = () => {
 <style lang="scss">
 body {
   &.-modal-opened {
+    overflow: hidden;
+
     .layout {
       & > *:not(.modal-controller) {
         transition: filter .2s ease;

@@ -7,7 +7,7 @@ import UIInput from '@/components/ui/UIInput.vue'
 import UICheckbox from '@/components/ui/UICheckbox.vue'
 
 const $modals = useModals()
-const fieldValue = ref('asd')
+const fieldValue = ref('')
 const checkboxValue = reactive({
   single: true,
   group: ['value2']
@@ -32,7 +32,7 @@ const openExampleModal = () => {
 
       <section>
         <h6>UI Input</h6>
-        <div>value: {{ fieldValue }}</div>
+        <div>value: {{ fieldValue || '-' }}</div>
         <UIInput
             v-model="fieldValue"
             placeholder="Custom placeholder"

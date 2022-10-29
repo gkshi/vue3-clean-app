@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, onBeforeMount } from 'vue'
 
 import IconCheck from '@/components/icons/CheckIcon.vue'
 
@@ -15,10 +15,15 @@ interface Props {
 
 const _ref = ref<HTMLInputElement | null>(null)
 const emit = defineEmits(['update:modelValue', 'change'])
-const props = withDefaults(defineProps<Props>(), {
-  id: Math.random().toFixed(10).slice(2),
-  name: Math.random().toFixed(10).slice(2)
-})
+const props = defineProps<Props>()
+const fieldID = ref(props.id)
+
+const fieldProps = () => {
+  const arr = { ...props }
+  delete arr.modelValue
+  delete arr.checked
+  return arr
+}
 
 const isChecked = computed(() => {
   if (Array.isArray(props.modelValue)) {
@@ -27,6 +32,10 @@ const isChecked = computed(() => {
     return !!props.modelValue
   }
 })
+
+const onBoxClick = () => {
+  _ref.value && _ref.value.click()
+}
 
 const onChange = (e: any) => {
   if (Array.isArray(props.modelValue)) {
@@ -43,54 +52,61 @@ const onChange = (e: any) => {
   }
   emit('change', e)
 }
+
+onBeforeMount(() => {
+  // Setting a random ID value if it was not passed as prop.
+  // It is placed in onBeforeMount hook, so every vue component instance will have a unique value
+  fieldID.value = fieldID.value || Math.random().toFixed(10).slice(2)
+})
 </script>
 
 <template>
   <div :class="`component -ui -checkbox ${isChecked ? '-checked' : ''} ${props.disabled ? '-disabled' : ''}`">
-    <label class="flex">
-      <input
-          ref="_ref"
-          type="checkbox"
-          v-bind="props"
-          :value="props.value"
-          :checked="isChecked"
-          @change="onChange"
-      >
+    <input
+        type="checkbox"
+        v-bind="fieldProps()"
+        :id="fieldID"
+        :value="props.value"
+        :checked="isChecked"
+        @change="onChange"
+    >
 
-      <span class="inline-flex a-center">
-        <span class="label">
+    <span class="intro inline-flex a-center">
+        <label :for="fieldID" ref="_ref">
           <slot></slot>
-        </span>
+        </label>
 
-        <span class="box flex center">
+        <span class="box flex center" @click="onBoxClick">
           <IconCheck/>
         </span>
       </span>
-    </label>
   </div>
 </template>
 
 <style lang="scss" scoped>
 @import "src/assets/scss/variables";
 
+$checkbox-width: 24px;
+$checkbox-height: $checkbox-width;
+
 .component.-ui.-checkbox {
+  position: relative;
+
   input {
+    display: block;
     position: absolute;
     top: 0;
     left: 0;
+    width: $checkbox-width;
+    height: $checkbox-height;
     z-index: -1;
     opacity: 0;
-    visibility: hidden;
-  }
-
-  label {
-    cursor: pointer;
   }
 
   .box {
     flex-shrink: 0;
-    width: 20px;
-    height: 20px;
+    width: $checkbox-width;
+    height: $checkbox-height;
     margin-right: 10px;
     border-radius: $border-radius-checkbox;
     background: $color-checkbox-bg;
@@ -105,10 +121,11 @@ const onChange = (e: any) => {
     }
   }
 
-  .label {
+  label {
     order: 2;
-    font-size: $font-size-regular;
-    line-height: $line-height-regular;
+    font-size: inherit;
+    line-height: inherit;
+    cursor: pointer;
 
     &:empty + .box {
       margin-right: 0;
@@ -126,7 +143,7 @@ const onChange = (e: any) => {
   }
 
   &:not(.-checked) {
-    label {
+    .intro {
       &:hover {
         .box {
           background: darken($color-checkbox-bg, 4%);
