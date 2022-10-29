@@ -23,7 +23,7 @@ const openExampleModal = () => {
     <div class="container -wide">
       <h1>Home page</h1>
 
-      <section>home page content</section>
+      <section>Default Layout -> Home page view</section>
 
       <section>
         <h6>UI Button</h6>

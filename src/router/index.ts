@@ -14,6 +14,9 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/about',
     name: 'about',
+    meta: {
+      layout: 'simple'
+    },
     component: () => import('../views/AboutView.vue')
   }
 ]

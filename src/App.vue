@@ -17,6 +17,6 @@ const layout = computed(() => {
 
 <style lang="scss" scoped>
 #app {
-  //
+  min-height: 100vh;
 }
 </style>
