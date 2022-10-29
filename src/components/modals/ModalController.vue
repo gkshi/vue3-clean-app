@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import { useModals } from '@/stores/modals'
 
 // modals
@@ -7,6 +7,24 @@ import ExampleModal from './list/ExampleModal.vue'
 
 const $modals = useModals()
 const show = computed(() => $modals.state.openedModals.length)
+
+const enableKeyupListener = () => {
+  window.onkeyup = (e) => {
+    if (e.key === 'Escape') {
+      $modals.closeLast()
+    }
+  }
+}
+
+const disableKeyupListener = () => {
+  window.onkeyup = null
+}
+
+watch(show, active => {
+  active
+    ? enableKeyupListener()
+    : disableKeyupListener()
+})
 
 const onBackgroundClick = () => {
   $modals.closeLast()

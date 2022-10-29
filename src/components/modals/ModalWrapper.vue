@@ -92,7 +92,7 @@ onUnmounted(() => {
       z-index: 1;
       width: 48px;
       height: 48px;
-      color: rgba($color-text-dark, .6);
+      color: rgba($color-text-dark, .25);
       text-decoration: none;
 
       &:hover {
