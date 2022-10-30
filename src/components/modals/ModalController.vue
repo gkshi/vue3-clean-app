@@ -7,6 +7,7 @@ import ExampleModal from './list/ExampleModal.vue'
 
 const $modals = useModals()
 const show = computed(() => $modals.state.openedModals.length)
+const showModal = (id: string) => $modals.isOpened(id)
 
 const enableKeyupListener = () => {
   window.onkeyup = (e) => {
@@ -35,7 +36,7 @@ const onBackgroundClick = () => {
   <Transition name="modal">
     <div v-if="show" class="modal-controller" @click.self="onBackgroundClick">
       <!-- modal list here -->
-      <ExampleModal/>
+      <ExampleModal v-if="showModal('example')"/>
     </div>
   </Transition>
 </template>

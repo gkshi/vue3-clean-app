@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeMount, onBeforeUnmount, onMounted, onUnmounted, useSlots } from 'vue'
+import { onBeforeMount, onBeforeUnmount, onMounted, onUnmounted, useSlots } from 'vue'
 import { useModals } from '@/stores/modals'
 
 import CrossIcon from '@/components/icons/CrossIcon.vue'
@@ -17,8 +17,6 @@ const slots = useSlots()
 const emit = defineEmits(['beforeOpen', 'opened', 'beforeClose', 'closed'])
 
 const animationDelay = 200 // Sync this value with transition property in styles below
-
-const show = computed(() => $modals.isOpened(props.id))
 
 const close = () => $modals.close(props.id)
 
@@ -38,31 +36,29 @@ onUnmounted(() => {
 
 <template>
   <div class="component -modal-wrapper">
-    <template v-if="show">
-      <dialog :class="`modal -size-${props.size}`" :data-modal-id="props.id" :open="show">
-        <a class="close flex center" href="#" @click.prevent="close">
-          <CrossIcon/>
-        </a>
+    <dialog :class="`modal -size-${props.size}`" :data-modal-id="props.id" open>
+      <a class="close flex center" href="#" @click.prevent="close">
+        <CrossIcon/>
+      </a>
 
-        <template v-if="slots.header().length">
-          <div class="header">
-            <slot name="header"/>
-          </div>
-        </template>
-
-        <div class="main">
-          <slot/>
+      <template v-if="slots.header().length">
+        <div class="header">
+          <slot name="header"/>
         </div>
+      </template>
 
-        <template v-if="slots.footer().length">
-          <div class="footer">
-            <slot name="footer"></slot>
-          </div>
-        </template>
-      </dialog>
+      <div class="main">
+        <slot/>
+      </div>
 
-      <div class="space" @click="close"></div>
-    </template>
+      <template v-if="slots.footer().length">
+        <div class="footer">
+          <slot name="footer"></slot>
+        </div>
+      </template>
+    </dialog>
+
+    <div class="space" @click="close"></div>
   </div>
 </template>
 
