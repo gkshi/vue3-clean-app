@@ -12,6 +12,7 @@ interface Props {
   readonly?: boolean,
   required?: boolean,
   disabled?: boolean,
+  rows?: number | string,
   theme?: 'default' | 'alternative', // field themes
   size?: 'default' | 'small', // field sizes
 }
@@ -42,7 +43,7 @@ const fieldProps = () => {
   return arr
 }
 
-const classList = computed(() => `component -ui -input -size-${props.size} -theme-${props.theme} ${isFilled.value ? '-filled' : ''} ${props.disabled ? '-disabled' : ''}`)
+const classList = computed(() => `component -ui -textarea -size-${props.size} -theme-${props.theme} ${isFilled.value ? '-filled' : ''} ${props.disabled ? '-disabled' : ''}`)
 const isFilled = computed(() => !!props.modelValue)
 
 const focus = () => {
@@ -75,7 +76,7 @@ defineExpose({
       <slot/>
     </label>
 
-    <input
+    <textarea
         ref="_ref"
         v-bind="fieldProps()"
         :value="props.modelValue"
@@ -88,14 +89,16 @@ defineExpose({
 <style lang="scss" scoped>
 @import "src/assets/scss/variables";
 
-.component.-ui.-input {
+.component.-ui.-textarea {
   label {
     display: block;
   }
 
-  input {
+  textarea {
     display: block;
     width: 100%;
+    max-width: 100%;
+    min-width: 100%;
     border: none;
     font-family: $font-family-default;
     transition: $transition-field;
@@ -103,7 +106,7 @@ defineExpose({
 
   &.-theme {
     &-default {
-      input {
+      textarea {
         background: $color-field-bg;
 
         &:hover {
@@ -116,7 +119,7 @@ defineExpose({
     }
 
     &-alternative {
-      input {
+      textarea {
         //
       }
     }
@@ -124,16 +127,17 @@ defineExpose({
 
   &.-size {
     &-default {
-      input {
+      textarea {
         font-size: $font-size-regular;
         line-height: $line-height-regular;
-        padding: 20px 24px;
         border-radius: $border-radius-field;
+        padding: 20px 24px;
+        min-height: 64px;
       }
     }
 
     &-small {
-      input {
+      textarea {
         //
       }
     }

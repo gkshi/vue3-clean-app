@@ -4,6 +4,7 @@ import { useModals } from '@/stores/modals'
 
 import UIButton from '@/components/ui/UIButton.vue'
 import UIInput from '@/components/ui/UIInput.vue'
+import UITextarea from '@/components/ui/UITextarea.vue'
 import UICheckbox from '@/components/ui/UICheckbox.vue'
 
 const $modals = useModals()
@@ -38,6 +39,17 @@ const openExampleModal = () => {
             placeholder="Custom placeholder"
             autofocus
         >Field label</UIInput>
+      </section>
+
+      <section>
+        <h6>UITextarea</h6>
+        <UITextarea
+          v-model="fieldValue"
+          placeholder="Area custom placeholder"
+          :rows="6"
+        >
+          Area label
+        </UITextarea>
       </section>
 
       <section>

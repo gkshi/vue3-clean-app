@@ -92,6 +92,7 @@ onUnmounted(() => {
       height: 48px;
       color: rgba($color-text-dark, .25);
       text-decoration: none;
+      transition: $transition-default;
 
       &:hover {
         color: $color-text-dark;
