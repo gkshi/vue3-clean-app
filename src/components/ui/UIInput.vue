@@ -12,6 +12,7 @@ interface Props {
   readonly?: boolean,
   required?: boolean,
   disabled?: boolean,
+  pattern?: string,
   theme?: 'default' | 'alternative', // field themes
   size?: 'default' | 'small', // field sizes
 }
