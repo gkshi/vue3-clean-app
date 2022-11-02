@@ -1,4 +1,4 @@
-import { reactive } from 'vue'
+import { nextTick, reactive } from 'vue'
 import { defineStore } from 'pinia'
 
 type ModalID = string
@@ -12,16 +12,21 @@ const removeBodyClass = () => {
 
 export const useModals = defineStore('modals', () => {
   const state = reactive({
-    openedModals: [] as ModalID[]
+    openedModals: [] as ModalID[],
+    modalData: null as any
   })
 
-  const open = (modalID: ModalID) => {
+  const open = (modalID: ModalID, data?: any) => {
     addBodyClass()
-    state.openedModals = [...state.openedModals, modalID]
+    nextTick(() => {
+      state.openedModals = [...state.openedModals, modalID]
+      state.modalData = data !== undefined ? data : null
+    })
   }
 
   const close = (modalID: ModalID) => {
     state.openedModals = state.openedModals.filter(i => i !== modalID)
+    state.modalData = null
     if (!state.openedModals.length) {
       removeBodyClass()
     }
@@ -29,6 +34,7 @@ export const useModals = defineStore('modals', () => {
 
   const closeLast = () => {
     state.openedModals = state.openedModals.slice(0, -1)
+    state.modalData = null
     if (!state.openedModals.length) {
       removeBodyClass()
     }
@@ -36,6 +42,7 @@ export const useModals = defineStore('modals', () => {
 
   const closeAll = () => {
     state.openedModals = []
+    state.modalData = null
     removeBodyClass()
   }
 
