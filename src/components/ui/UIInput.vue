@@ -6,7 +6,7 @@ interface Props {
   name?: string,
   type?: string,
   modelValue: string | number,
-  autocomplete?: boolean | string,
+  autocomplete?: 'on' | 'off',
   autofocus?: boolean,
   placeholder?: string,
   readonly?: boolean,
@@ -15,6 +15,7 @@ interface Props {
   pattern?: string,
   theme?: 'default' | 'alternative', // field themes
   size?: 'default' | 'small', // field sizes
+  error?: string | boolean // error text
 }
 
 const _ref = ref<HTMLInputElement | null>(null)
@@ -23,8 +24,7 @@ const slots = useSlots()
 const props = withDefaults(defineProps<Props>(), {
   type: 'text',
   theme: 'default',
-  size: 'default',
-  autocomplete: true
+  size: 'default'
 })
 const fieldID = ref(props.id)
 
@@ -33,17 +33,14 @@ const fieldProps = () => {
   const arr = { ...props } as Props
   delete arr.theme
   delete arr.size
-  delete arr.autocomplete
-  if (props.autocomplete === false || props.autocomplete === 'off') {
-    arr.autocomplete = 'off'
-  }
+  delete arr.error
   if (slots.default) {
     arr.id = fieldID.value
   }
   return arr
 }
 
-const classList = computed(() => `component -ui -input -size-${props.size} -theme-${props.theme} ${isFilled.value ? '-filled' : ''} ${props.disabled ? '-disabled' : ''}`)
+const classList = computed(() => `component -ui -input -size-${props.size} -theme-${props.theme} ${isFilled.value ? '-filled' : ''} ${props.disabled ? '-disabled' : ''} ${props.error ? '-error' : ''}`)
 const isFilled = computed(() => !!props.modelValue)
 
 const focus = () => {
@@ -83,6 +80,10 @@ defineExpose({
         @input="onInput"
         @change="onChange"
     />
+
+    <div v-if="props.error && typeof props.error === 'string'" class="error-text">
+      {{ props.error }}
+    </div>
   </div>
 </template>
 
@@ -146,6 +147,16 @@ defineExpose({
 
   &.-disabled {
     //
+  }
+
+  &.-error {
+    input {
+      border-color: $color-danger;
+      &:hover,
+      &:focus {
+        border-color: $color-danger;
+      }
+    }
   }
 }
 </style>
